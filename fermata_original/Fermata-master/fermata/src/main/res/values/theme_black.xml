@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme.Black">
+
+        <item name="android:colorBackground">#000000</item>
+        <item name="android:editTextColor">#FFFFFF</item>
+
+        <!-- Status bar-->
+        <item name="colorPrimaryDark">#000000</item>
+
+        <!-- Tool/Nav bars -->
+        <item name="colorPrimary">#000000</item>
+        <item name="colorOnPrimary">#FF6B6B</item>
+        <item name="android:textColorPrimary">#FF6B6B</item>
+
+        <!-- List/Media items -->
+        <item name="colorSecondary">#000000</item>
+        <item name="colorOnSecondary">#FF6B6B</item>
+        <item name="android:textColorSecondary">#FFFFFF</item>
+        <item name="boxStrokeColor">#6A6A6A</item>
+
+        <!-- Active media item -->
+        <item name="alpha">1</item>
+        <item name="colorSecondaryVariant">#FF6B6B</item>
+        <item name="android:textColorTertiary">#FFFFFF</item>
+
+        <!-- Popup menu -->
+        <item name="colorSurface">#242424</item>
+        <item name="colorOnSurface">#FFFFFF</item>
+        <item name="colorPrimarySurface">#000000</item>
+        <item name="colorOnPrimarySurface">#FF6B6B</item>
+
+        <item name="colorAccent">#FF6B6B</item>
+        <item name="rippleColor">#FF8C8C</item>
+
+        <item name="android:textColorHint">#6A6A6A</item>
+
+        <item name="colorControlNormal">#FFFFFF</item>
+        <item name="colorControlActivated">#FF6B6B</item>
+
+    </style>
+
+</resources>
