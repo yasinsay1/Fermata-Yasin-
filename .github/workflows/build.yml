@@ -49,15 +49,36 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x fermata_original/Fermata-master/gradlew
 
-      - name: Build Debug APK
+      # The TV/IPTV, radio, web, etc. modules under modules/ are dynamic features
+      # of :fermata, so a plain assembleDebug APK would not contain them. The
+      # universal-APK packaging tasks (same as upstream) bundle them in.
+      - name: Build Debug APKs (mobile + auto)
+        id: build
         working-directory: fermata_original/Fermata-master
+        env:
+          NO_GS: true
         run: |
-          ./gradlew assembleDebug --no-daemon
+          set -o pipefail
+          ./gradlew fermata:packageMobileDebugUniversalApk fermata:packageAutoDebugUniversalApk \
+            -PABI=arm64-v8a,armeabi-v7a --no-daemon --stacktrace 2>&1 | tee "$RUNNER_TEMP/gradle.log"
 
-      - name: Upload Debug APK
+      # Publish Gradle's real error text as annotations so it is visible on the
+      # run summary / check-run API without opening the raw log.
+      - name: Annotate Gradle errors
+        if: failure() && steps.build.outcome == 'failure'
+        run: |
+          log="$RUNNER_TEMP/gradle.log"
+          [ -f "$log" ] || exit 0
+          enc() { sed ':a;N;$!ba;s/%/%25/g;s/\r/%0D/g;s/\n/%0A/g'; }
+          wrong="$(awk '/\* What went wrong:/{f=1;c=0} f{print substr($0,1,300); if(++c>=14) exit}' "$log" | enc)"
+          [ -z "$wrong" ] || echo "::error title=Gradle - What went wrong::$wrong"
+          errs="$(grep -E '^e: |error:|AAPT: error|Execution failed for task|Could not resolve|Unsupported|SDK location|licen[sc]e' "$log" | head -n 15 | cut -c1-300 | enc)"
+          [ -z "$errs" ] || echo "::error title=Gradle - error lines::$errs"
+
+      - name: Upload Debug APKs
         uses: actions/upload-artifact@v4
         with:
           name: fermata-yasin-debug
-          path: fermata_original/Fermata-master/fermata/build/outputs/apk/debug/*.apk
+          path: fermata_original/Fermata-master/fermata/build/outputs/apk_from_bundle/*/*.apk
           retention-days: 30
           if-no-files-found: error
