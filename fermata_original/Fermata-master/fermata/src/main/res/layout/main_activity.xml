@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
-        app:layout_constraintBottom_toTopOf="@id/body_layout"
+        app:layout_constraintBottom_toTopOf="@id/frequency_indicator"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -28,9 +28,10 @@
         android:gravity="center"
         android:orientation="horizontal"
         android:padding="8dp"
-        app:layout_constraintBottom_toTopOf="@id/body_layout"
+        app:layout_constraintBottom_toTopOf="@id/radio_presets"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tool_bar">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -65,7 +66,8 @@
         android:padding="8dp"
         app:layout_constraintBottom_toTopOf="@id/body_layout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/frequency_indicator">
 
         <Button
             android:id="@+id/preset_1"
@@ -108,7 +110,7 @@
         app:layout_constraintBottom_toTopOf="@id/control_panel"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/frequency_indicator"
+        app:layout_constraintTop_toBottomOf="@id/radio_presets"
         app:layout_constraintVertical_weight="1" />
 
     <me.aap.fermata.ui.view.ControlPanelView
@@ -120,6 +122,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/body_layout" />
+
+    <me.aap.fermata.ui.view.FermataNavBarView
+        android:id="@+id/nav_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:labelVisibilityMode="selected"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/control_panel" />
 
     <me.aap.utils.ui.view.FloatingButton
         android:id="@+id/floating_button"
